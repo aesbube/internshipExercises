@@ -1,0 +1,7 @@
+<div class="heroes-menu">
+  @for (hero of heroes; track hero.id) {
+  <a routerLink="/hero-detail/{{ hero.id }}">
+    {{ hero.name }}
+  </a>
+  }
+</div>

@@ -1,0 +1,21 @@
+<h2>Heroes</h2>
+<ul class="heroes">
+  @for (hero of heroes; track hero.id) {
+    <a routerLink="/hero-detail/{{ hero.id }}">
+      <span class="badge">{{ hero.id }}</span>
+      <span class="name">{{ hero.name }}</span>
+    </a>
+    <!-- @if (selectedHover && selectedHover.id
+  === hero.id) {
+  <button type="button" (click)="onHero(hero)" style="background-color: red">
+    <span class="badge">{{ hero.id }}</span>
+    <span class="name">{{ hero.name }}</span>
+  </button>
+  } @else {
+  <button type="button" (click)="onHero(hero)">
+    <span class="badge">{{ hero.id }}</span>
+    <span class="name">{{ hero.name }}</span>
+  </button>
+  } -->
+}
+</ul>
