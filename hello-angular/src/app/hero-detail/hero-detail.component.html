@@ -1,4 +1,4 @@
-@if (hero) {
+@if (hero$ | async; as hero) {
 <h3>{{ hero.name }} Details</h3>
 <p>
   <span>id: </span>
@@ -8,8 +8,9 @@
   <span>name: </span>
   <span>{{ hero.name }}</span>
 </p>
-}
-@else {
-  <p>No hero found</p>
-}
+<a routerLink="/hero-detail/{{ hero.id - 1 }}">Prev</a> |
+<a routerLink="/hero-detail/{{ hero.id + 1 }}">Next</a>
 
+} @else {
+<p>No hero found</p>
+}
