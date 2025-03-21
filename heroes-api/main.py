@@ -20,6 +20,15 @@ def get_heroes():
     return data["heroes"]
 
 
+@app.get("/api/heroes/search?query={query}")
+def get_heroes_search(query: str):
+    with open("heroes.json", "r") as file:
+        data = json.load(file)
+    heroes = data["heroes"]
+    heroes_result = [hero for hero in heroes if query.lower() in hero["name"].lower()]
+    return heroes_result
+
+
 @app.get("/api/hero-detail/{id}")
 def get_heroes_id(id: int):
     with open("heroes.json", "r") as file:
