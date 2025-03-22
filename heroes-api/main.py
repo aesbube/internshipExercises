@@ -20,7 +20,7 @@ def get_heroes():
     return data["heroes"]
 
 
-@app.get("/api/heroes/search?query={query}")
+@app.get("/api/heroes/search")
 def get_heroes_search(query: str):
     with open("heroes.json", "r") as file:
         data = json.load(file)
