@@ -1,6 +1,9 @@
 <h2>Heroes</h2>
+<button type="button" (click)="onReload()">Reload</button>
+<button type="button" (click)="onSort()">Sort</button>
+
 <ul class="heroes">
-  @for (hero of (heroes$ | async); track hero.id) {
+  @for (hero of heroes; track hero.id) {
   <a routerLink="/hero-detail/{{ hero.id }}">
     <span class="badge">{{ hero.id }}</span>
     <span class="name">{{ hero.name }}</span>

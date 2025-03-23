@@ -1,0 +1,14 @@
+<input
+  #search
+  type="text"
+  placeholder="Start typing to search..."
+  (input)="onChange(search.value)"
+/>
+
+<ul>
+  @for(hero of heroes$ | async; track hero.id) {
+  <li>
+    {{ hero.name }}
+  </li>
+  }
+</ul>

@@ -1,21 +1,22 @@
-import { Component, inject, OnInit } from "@angular/core";
-import { Hero } from "../hero";
-import { RouterLink } from "@angular/router";
-import { HeroesService } from "../heroes.service";
-import { Observable } from "rxjs";
-import { AsyncPipe } from "@angular/common";
+import { Component, inject, OnInit } from '@angular/core';
+import { Hero } from '../hero';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HeroesService } from '../heroes.service';
+import { combineLatest, map, mergeMap, Subject } from 'rxjs';
 
 @Component({
     selector: 'heroes',
     templateUrl: './heroes.component.html',
     styleUrl: './heroes.component.css',
-    imports: [RouterLink, AsyncPipe]
+    imports: [RouterLink],
 })
-
 export class HeroesComponent implements OnInit {
-    // heroes: Hero[] = [];
+    heroes: Hero[] = [];
     service = inject(HeroesService);
-    heroes$: Observable<Hero[]> = this.service.getHeroesAsync();
+    // heroes$: Observable<Hero[]> = this.service.getHeroesAsync();
+    subject = new Subject<void>();
+    route = inject(ActivatedRoute);
+    router = inject(Router);
 
     constructor() {
         console.log('service', this.service);
@@ -23,7 +24,30 @@ export class HeroesComponent implements OnInit {
 
     ngOnInit(): void {
         // this.heroes = this.service.getHeroes();
-        console.log('heroes', this.heroes$);
-     }
+        this.setUp();
+        this.subject.next();
+    }
 
+    setUp() {
+        combineLatest([
+            this.subject,
+            this.route.queryParams.pipe(map((params) => params['sort'])),
+        ])
+            .pipe(mergeMap(([_, sort]) => this.service.getHeroesAsync(sort)))
+            .subscribe((heroes) => {
+                this.heroes = heroes;
+            });
+    }
+
+    onSort() {
+        const current = this.route.snapshot.queryParams['sort'];
+        const sort = current === 'asc' ? 'desc' : 'asc';
+        this.router.navigate([], {
+            queryParams: { sort },
+        });
+    }
+
+    onReload() {
+        this.subject.next();
+    }
 }

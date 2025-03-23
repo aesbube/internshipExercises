@@ -22,7 +22,10 @@ export class HeroesService {
         return HEROES;
     }
 
-    getHeroesAsync(): Observable<Hero[]> {
+    getHeroesAsync(query?: string): Observable<Hero[]> {
+        if (query) {
+            return this.http.get<Hero[]>(`/api/sort?query=${query}`);
+        }
         return this.http.get<Hero[]>('/api/heroes');
     }
 
@@ -36,6 +39,26 @@ export class HeroesService {
 
     getTopHeroes(n: number): Hero[] {
         return this.getHeroes().slice(0, n);
+    }
+
+    getTopHeroesAsync(n: number): Observable<Hero[]> {
+        return this.http.get<Hero[]>(`/api/heroes/top?n=${n}`);
+    }
+
+    search(query: string): Observable<Hero[]> {
+        return this.http.get<Hero[]>(`/api/heroes/search?query=${query}`);
+    }
+
+    save(name: string): Observable<Hero> {
+        return this.http.post<Hero>(`/api/heroes?name=${name}`, { name });
+    }
+
+    update(id: number, name: string): Observable<Hero> {
+        return this.http.put<Hero>(`/api/heroes/${id}?name=${name}`, { name });
+    }
+
+    delete(id: number): Observable<Hero> {
+        return this.http.delete<Hero>(`/api/heroes/${id}`);
     }
 }
 
