@@ -19,6 +19,6 @@ def get_quote():
     number = random.randint(0, len(quotes)-1)
     return quotes[number]
 
-@app.get("/")
+@app.get("/api")
 def read_root():
     return get_quote()

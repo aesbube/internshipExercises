@@ -2,22 +2,24 @@ h1 {
   margin-bottom: 0;
   text-align: center;
 }
+
 nav {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
 }
+
 nav a {
-    background-color: #e8e8e8;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #3d3d3d;
-    font-size: 1.2rem;
-    padding: 1rem;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+  background-color: #e8e8e8;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #3d3d3d;
+  font-size: 1.2rem;
+  padding: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 nav a:hover {
@@ -33,10 +35,13 @@ nav a.active {
 }
 
 .body {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    transition: background-color 0.5s ease-in-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transition: background-color 0.5s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

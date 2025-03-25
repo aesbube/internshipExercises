@@ -1,6 +1,23 @@
-<div class="card" >
-    @if (quote) {
-        <p>{{ quote.quote }}</p>
-        <p>{{ quote.author }}</p>
-    }
+@if (quote) {
+<div class="card">
+  <p [style.color]="color">
+    <i class="fa fa-quote-left" aria-hidden="true" [style.color]="color"></i
+    >{{ quote.quote }}
+  </p>
+  <p id="author" [style.color]="color">- {{ quote.author }}</p>
+
+  <div class="buttons">
+    <a
+      href="https://x.com/intent/tweet?text={{ quote.quote }} - {{
+        quote.author
+      }}"
+      target="_blank"
+      [style.background-color]="color"
+      >Tweet</a
+    >
+    <button type="submit" (click)="newQuote()" [style.background-color]="color">
+      New Quote
+    </button>
+  </div>
 </div>
+}
