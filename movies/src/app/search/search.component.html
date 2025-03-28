@@ -1,1 +1,12 @@
-<p>search works!</p>
+<input
+    #search
+    type="text"
+    placeholder="Start typing to search..."
+    (input)="onChange(search.value)"
+/>
+
+<ul>
+    @for(movie of movies$ | async; track movie.imdbID) {
+    <app-search-item [movie]="movie"></app-search-item>
+    }
+</ul>
