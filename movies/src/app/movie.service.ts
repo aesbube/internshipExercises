@@ -26,6 +26,12 @@ export class MovieService {
       }
     ));
   }
+
+  getMovieDetails(id: string): Observable<Movie> {
+    const url = `${this.apiUrl}?i=${id}&apikey=${this.apiKey}`;
+    return this.http.get<Movie>(url);
+  }
+  
 }
 
 interface Response {

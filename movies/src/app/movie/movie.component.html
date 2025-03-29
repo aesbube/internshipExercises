@@ -1,1 +1,16 @@
-<p>movie works!</p>
+<a [routerLink]="['/search']">Go back</a>
+@if (movie) {
+<div class="movie">
+    <img [src]="movie.Poster" alt="Movie Poster" />
+    <div class="details">
+        <h3>{{ movie.Title }}</h3>
+        <p>{{ movie.Plot }}</p>
+        <p><strong>Genre:</strong> {{ movie.Genre }}</p>
+        <p><strong>Director:</strong> {{ movie.Director }}</p>
+        <p><strong>Actors:</strong> {{ movie.Actors }}</p>
+        <p><strong>Rating:</strong> {{ movie.imdbRating }}</p>
+    </div>
+</div>
+} @else {
+<p>Loading...</p>
+}

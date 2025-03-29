@@ -1,5 +1,5 @@
 <li class="search-item">
-    <a [routerLink]="['/movie', movie.imdbID]">
+    <a [routerLink]="['/movie']" [queryParams]="{ id: movie.imdbID }">
         <img [src]="movie.Poster" alt="Movie Poster" />
         <div class="details">
             <h3>{{ movie.Title }}</h3>
