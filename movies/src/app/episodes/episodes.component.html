@@ -1,1 +1,15 @@
-<p>episodes works!</p>
+<ul>
+    @for (season of seasons; track season) {
+    <li>
+        <p>Season: {{ season.Season }}</p>
+        <ul>
+            @for (episode of season.Episodes; track episode) {
+            <li>
+                <p>Episode: {{ episode.Episode }}</p>
+                <p>Title: {{ episode.Title }}</p>
+            </li>
+            }
+        </ul>
+    </li>
+    }
+</ul>

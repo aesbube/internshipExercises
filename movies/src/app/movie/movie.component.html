@@ -11,6 +11,13 @@
         <p><strong>Rating:</strong> {{ movie.imdbRating }}</p>
     </div>
 </div>
-} @else {
+@if (movie.totalSeasons) {
+<div class="seasons">
+    <app-episodes
+        [id]="movie.imdbID"
+        [totalSeasons]="+movie.totalSeasons"
+    ></app-episodes>
+</div>
+} } @else {
 <p>Loading...</p>
 }

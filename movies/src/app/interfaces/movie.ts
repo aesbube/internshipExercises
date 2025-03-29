@@ -20,7 +20,7 @@ export interface Movie {
     Metascore?: string | null;
     imdbRating?: string;
     imdbVotes?: string;
-    imdbID?: string;
+    imdbID: string;
     Type?: string;
     totalSeasons?: number;
     Response?: 'True' | 'False';

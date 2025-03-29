@@ -3,10 +3,11 @@ import { switchMap } from 'rxjs';
 import { Movie } from '../interfaces/movie';
 import { MovieService } from '../movie.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { EpisodesComponent } from "../episodes/episodes.component";
 
 @Component({
     selector: 'app-movie',
-    imports: [RouterLink],
+    imports: [RouterLink, EpisodesComponent],
     templateUrl: './movie.component.html',
     styleUrl: './movie.component.css',
 })
