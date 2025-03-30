@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Movie } from '../interfaces/movie';
+import { Movie } from '../../interfaces/movie';
 import { RouterLink } from '@angular/router';
 
 @Component({

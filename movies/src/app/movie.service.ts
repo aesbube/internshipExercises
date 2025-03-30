@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { forkJoin, Observable, of, switchMap } from 'rxjs';
-import { Movie } from './interfaces/movie';
-import { Season } from './interfaces/season';
+import { Movie } from '../interfaces/movie';
+import { Season } from '../interfaces/season';
 
 @Injectable({
     providedIn: 'root',

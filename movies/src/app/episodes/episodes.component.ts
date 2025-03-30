@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { MovieService } from '../movie.service';
-import { Season } from '../interfaces/season';
+import { Season } from '../../interfaces/season';
 
 @Component({
     selector: 'app-episodes',

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs';
-import { Movie } from '../interfaces/movie';
+import { Movie } from '../../interfaces/movie';
 import { MovieService } from '../movie.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EpisodesComponent } from "../episodes/episodes.component";

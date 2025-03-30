@@ -6,7 +6,7 @@ import {
     Subject,
     switchMap,
 } from 'rxjs';
-import { Movie } from '../interfaces/movie';
+import { Movie } from '../../interfaces/movie';
 import { MovieService } from '../movie.service';
 import { AsyncPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
