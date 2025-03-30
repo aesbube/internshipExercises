@@ -4,10 +4,11 @@ import { Movie } from '../../interfaces/movie';
 import { MovieService } from '../movie.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { EpisodesComponent } from "../episodes/episodes.component";
+import { ActorsComponent } from "../actors/actors.component";
 
 @Component({
     selector: 'app-movie',
-    imports: [RouterLink, EpisodesComponent],
+    imports: [RouterLink, EpisodesComponent, ActorsComponent],
     templateUrl: './movie.component.html',
     styleUrl: './movie.component.css',
 })

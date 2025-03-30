@@ -1,23 +1,29 @@
 <a [routerLink]="['/search']">Go back</a>
 @if (movie) {
 <div class="movie">
+    <h3>{{ movie.Title }}</h3>
     <img [src]="movie.Poster" alt="Movie Poster" />
     <div class="details">
-        <h3>{{ movie.Title }}</h3>
         <p>{{ movie.Plot }}</p>
-        <p><strong>Genre:</strong> {{ movie.Genre }}</p>
-        <p><strong>Director:</strong> {{ movie.Director }}</p>
-        <p><strong>Actors:</strong> {{ movie.Actors }}</p>
+        <p><strong>Language:</strong> {{ movie.Language }}</p>
+        <p><strong>Genres:</strong> {{ movie.Genre }}</p>
+        <p><strong>Premiered:</strong> {{ movie.Released }}</p>
         <p><strong>Rating:</strong> {{ movie.imdbRating }}</p>
     </div>
 </div>
-@if (movie.totalSeasons) {
-<div class="seasons">
-    <app-episodes
-        [id]="movie.imdbID"
-        [totalSeasons]="+movie.totalSeasons"
-    ></app-episodes>
+<div class="details-episodes-cast">
+    <div class="actors">
+        <app-actors [actors]="movie.Actors"></app-actors>
+    </div>
+    @if (movie.totalSeasons) {
+    <div class="seasons">
+        <app-episodes
+            [id]="movie.imdbID"
+            [totalSeasons]="+movie.totalSeasons"
+        ></app-episodes>
+    </div>
+    }
 </div>
-} } @else {
+} @else {
 <p>Loading...</p>
 }

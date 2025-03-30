@@ -1,15 +1,14 @@
+<h2>Episodes</h2>
 <ul>
-    @for (season of seasons; track season) {
+    @for (season of seasons; track season) { @for (episode of season.Episodes;
+    track episode) {
     <li>
-        <p>Season: {{ season.Season }}</p>
-        <ul>
-            @for (episode of season.Episodes; track episode) {
-            <li>
-                <p>Episode: {{ episode.Episode }}</p>
-                <p>Title: {{ episode.Title }}</p>
-            </li>
-            }
-        </ul>
+        <p>
+            <strong
+                >S{{ season.Season }}E{{ episode.Episode }}
+                {{ episode.Title }}</strong
+            >
+        </p>
     </li>
-    }
+    } }
 </ul>
