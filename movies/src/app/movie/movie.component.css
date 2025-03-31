@@ -4,3 +4,32 @@
     justify-content: space-between;
     margin-top: 20px;
 }
+
+#movie-stuff {
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+    gap: 20px; /* Adds space between the image and details */
+}
+
+#movie-stuff img {
+    max-width: 200px; /* Adjust the width of the poster */
+    height: auto;
+    border: 5px solid #ccc; /* Optional: adds a border around the image */
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00897b; /* Teal color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #00695c; /* Darker teal on hover */
+}
