@@ -7,20 +7,20 @@
 
 #movie-stuff {
     display: flex;
-    align-items: flex-start; /* Align items at the top */
-    gap: 20px; /* Adds space between the image and details */
+    align-items: flex-start;
+    gap: 20px;
 }
 
 #movie-stuff img {
-    max-width: 200px; /* Adjust the width of the poster */
+    max-width: 200px;
     height: auto;
-    border: 5px solid #ccc; /* Optional: adds a border around the image */
+    border: 5px solid #ccc;
 }
 
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #00897b; /* Teal color */
+    background-color: #00897b;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -31,5 +31,5 @@
 }
 
 .btn:hover {
-    background-color: #00695c; /* Darker teal on hover */
+    background-color: #00695c;
 }
