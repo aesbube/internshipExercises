@@ -4,3 +4,32 @@
     justify-content: space-between;
     margin-top: 20px;
 }
+
+#movie-stuff {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+#movie-stuff img {
+    max-width: 200px;
+    height: auto;
+    border: 5px solid #ccc;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00897b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #00695c;
+}
