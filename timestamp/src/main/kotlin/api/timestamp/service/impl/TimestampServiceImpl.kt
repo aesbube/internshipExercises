@@ -32,6 +32,9 @@ class TimestampServiceImpl : TimestampService {
     }
 
     private fun normalizeDate(utc: String): LocalDate {
+        if (utc.length == 10) {
+            return LocalDate.parse(utc)
+        }
         val parts = utc.split("-")
         val year = parts[0].padStart(4, '0')
         val month = parts[1].padStart(2, '0')
