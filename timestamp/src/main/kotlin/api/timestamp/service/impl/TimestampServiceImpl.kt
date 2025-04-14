@@ -8,13 +8,10 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 
 @Service
 class TimestampServiceImpl : TimestampService {
-    val logger: Logger = LoggerFactory.getLogger(TimestampServiceImpl::class.java)
     override fun getTimestamp(input: String): Timestamp {
         return if (input.isEmpty()) {
             parseUtcToUnix(LocalDate.now().toString())

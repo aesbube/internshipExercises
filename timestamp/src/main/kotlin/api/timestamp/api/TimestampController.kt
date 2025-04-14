@@ -15,6 +15,7 @@ class TimestampController(private val timestampService: TimestampService) {
     fun now(): ResponseEntity<Any> {
         return ResponseEntity.ok(timestampService.getTimestamp(""))
     }
+
     @GetMapping("/{timestamp}")
     fun getTimestamp(@PathVariable timestamp: String): ResponseEntity<Any> {
         return try {
