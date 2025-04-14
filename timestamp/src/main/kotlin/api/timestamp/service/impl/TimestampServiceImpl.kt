@@ -8,9 +8,13 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 
 @Service
 class TimestampServiceImpl : TimestampService {
+    val logger: Logger = LoggerFactory.getLogger(TimestampServiceImpl::class.java)
     override fun getTimestamp(input: String): Timestamp {
         return if (input.isEmpty()) {
             parseUtcToUnix(LocalDate.now().toString())
@@ -22,9 +26,19 @@ class TimestampServiceImpl : TimestampService {
     }
 
     private fun parseUtcToUnix(utc: String): Timestamp {
-        val date = LocalDate.parse(utc).atStartOfDay()
-        val unix: Long = date.toEpochSecond(ZoneOffset.UTC) * 1000
-        return Timestamp(unix, dateParsing(date))
+        val date = normalizeDate(utc).atStartOfDay()
+        val unixMillis = date.toEpochSecond(ZoneOffset.UTC) * 1000
+        return Timestamp(unixMillis, dateParsing(date))
+    }
+
+    private fun normalizeDate(utc: String): LocalDate {
+        val parts = utc.split("-")
+        val year = parts[0].padStart(4, '0')
+        val month = parts[1].padStart(2, '0')
+        val day = parts[2].padStart(2, '0')
+        val normalized = "$year-$month-$day"
+
+        return LocalDate.parse(normalized)
     }
 
     private fun parseUnixToUtc(unix: Long): Timestamp {
