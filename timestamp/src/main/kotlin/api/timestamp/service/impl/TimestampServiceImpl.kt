@@ -10,9 +10,12 @@ import java.util.*
 class TimestampServiceImpl : TimestampService {
 
     override fun getTimestamp(input: String): Timestamp {
+        if (input.count { it == '-' } > 2 || input.count { it == '.' } > 2 || input.count { it == '/' } > 2) {
+            throw IllegalArgumentException("Too many separators in date: $input")
+        }
         return if (input.isEmpty()) {
             parseDateToTimestamp(Date())
-        } else if (input.contains("-") || input.contains(".")) {
+        } else if (input.contains("-") || input.contains(".") || input.contains("/")) {
             parseFlexibleDate(input)
         } else {
             parseUnixToTimestamp(input.toLong())
@@ -25,7 +28,7 @@ class TimestampServiceImpl : TimestampService {
             "MM-dd-yyyy",
             "yyyy.MM.dd",
             "dd.MM.yyyy",
-            "MM.dd.yyyy"
+            "MM.dd.yyyy",
     )
 
     private fun parseFlexibleDate(input: String): Timestamp {
@@ -49,7 +52,7 @@ class TimestampServiceImpl : TimestampService {
     }
 
     private fun parseDateToTimestamp(date: Date): Timestamp {
-        val formatter = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'UTC'", Locale.US).apply {
+        val formatter = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'UTC'").apply {
             timeZone = TimeZone.getTimeZone("UTC")
         }
         return Timestamp(date.time, formatter.format(date))
