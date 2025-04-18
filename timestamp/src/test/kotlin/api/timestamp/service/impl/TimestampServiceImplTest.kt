@@ -28,7 +28,7 @@ class TimestampServiceImplTest {
 
     @Test
     fun `test unix timestamp input`() {
-        val unixTime = 1609459200000L // 2021-01-01 00:00:00 UTC
+        val unixTime = 1609459200000L
         val timestamp = timestampService.getTimestamp(unixTime.toString())
 
         assertEquals(unixTime, timestamp.unix)
@@ -75,7 +75,6 @@ class TimestampServiceImplTest {
     fun `test ancient date handling`() {
         val timestamp = timestampService.getTimestamp("13-1-0213")
 
-        // Testing that January 13, 213 is correctly handled
         timestamp.utc?.let { assertTrue(it.contains("13 Jan 0213")) }
     }
 
@@ -99,7 +98,7 @@ class TimestampServiceImplTest {
     @Test
     fun `test invalid date value throws exception`() {
         val exception = assertThrows<IllegalArgumentException> {
-            timestampService.getTimestamp("31-2-2023") // February 31st is invalid
+            timestampService.getTimestamp("31-2-2023")
         }
         assertEquals("Unrecognized date format: 31-2-2023", exception.message)
     }
