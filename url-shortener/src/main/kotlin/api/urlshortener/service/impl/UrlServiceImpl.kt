@@ -9,13 +9,6 @@ import java.net.URISyntaxException
 
 @Service
 class UrlServiceImpl(val urlRepository: UrlRepository) : UrlService {
-    override fun addUrl(originalUrl: String): Url {
-        if (!isValidUrl(originalUrl)) {
-            throw IllegalArgumentException("Invalid URL format: $originalUrl")
-        }
-        return urlRepository.save(Url(originalUrl = originalUrl))
-    }
-
     private fun isValidUrl(url: String): Boolean {
         return try {
             val uri = URI(url)
@@ -39,5 +32,22 @@ class UrlServiceImpl(val urlRepository: UrlRepository) : UrlService {
         } catch (e: Exception) {
             throw RuntimeException("Error fetching URL by original URL: ${e.message}", e)
         }
+    }
+
+    override fun addUrl(originalUrl: String): Url {
+        if (!isValidUrl(originalUrl)) {
+            throw IllegalArgumentException("Invalid URL format: $originalUrl")
+        }
+        var shortUrl: Long
+        do {
+            shortUrl = generateRandomId()
+        } while (urlRepository.existsById(shortUrl))
+
+        val url = Url(shortUrl = shortUrl, originalUrl = originalUrl)
+        return urlRepository.save(url)
+    }
+
+    private fun generateRandomId(): Long {
+        return (100_000_000..999_999_999).random().toLong()
     }
 }

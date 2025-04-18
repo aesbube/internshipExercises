@@ -28,8 +28,8 @@ class UrlController(val urlService: UrlService) {
         }
     }
 
-    @PostMapping("/shorten")
-    fun getUrlByShortUrl(@RequestBody urlRequest: UrlRequest): ResponseEntity<Any> {
+    @PostMapping
+    fun getUrlByOriginalUrl(@RequestBody urlRequest: UrlRequest): ResponseEntity<Any> {
         val existingUrl = urlService.getUrlByOriginalUrl(urlRequest.url)
         if (existingUrl != null) {
             return ResponseEntity.ok(existingUrl)
