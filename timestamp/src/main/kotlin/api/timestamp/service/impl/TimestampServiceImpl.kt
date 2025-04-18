@@ -3,50 +3,56 @@ package api.timestamp.service.impl
 import api.timestamp.domain.Timestamp
 import api.timestamp.service.TimestampService
 import org.springframework.stereotype.Service
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Service
 class TimestampServiceImpl : TimestampService {
+
     override fun getTimestamp(input: String): Timestamp {
         return if (input.isEmpty()) {
-            parseUtcToUnix(LocalDate.now().toString())
-        } else if (input.contains("-")) {
-            parseUtcToUnix(input)
+            parseDateToTimestamp(Date())
+        } else if (input.contains("-") || input.contains(".")) {
+            parseFlexibleDate(input)
         } else {
-            parseUnixToUtc(input.toLong())
+            parseUnixToTimestamp(input.toLong())
         }
     }
 
-    private fun parseUtcToUnix(utc: String): Timestamp {
-        val date = normalizeDate(utc).atStartOfDay()
-        val unixMillis = date.toEpochSecond(ZoneOffset.UTC) * 1000
-        return Timestamp(unixMillis, dateParsing(date))
-    }
+    private val datePatterns = listOf(
+            "yyyy-MM-dd",
+            "dd-MM-yyyy",
+            "MM-dd-yyyy",
+            "yyyy.MM.dd",
+            "dd.MM.yyyy",
+            "MM.dd.yyyy"
+    )
 
-    private fun normalizeDate(utc: String): LocalDate {
-        if (utc.length == 10) {
-            return LocalDate.parse(utc)
+    private fun parseFlexibleDate(input: String): Timestamp {
+        for (pattern in datePatterns) {
+            try {
+                val formatter = SimpleDateFormat(pattern, Locale.getDefault()).apply {
+                    isLenient = false
+                    timeZone = TimeZone.getTimeZone("UTC")
+                }
+                val date = formatter.parse(input)
+                if (date != null) return parseDateToTimestamp(date)
+            } catch (_: Exception) {
+            }
         }
-        val parts = utc.split("-")
-        val year = parts[0].padStart(4, '0')
-        val month = parts[1].padStart(2, '0')
-        val day = parts[2].padStart(2, '0')
-        val normalized = "$year-$month-$day"
-
-        return LocalDate.parse(normalized)
+        throw IllegalArgumentException("Unrecognized date format: $input")
     }
 
-    private fun parseUnixToUtc(unix: Long): Timestamp {
-        val date = Instant.ofEpochMilli(unix).atZone(ZoneOffset.UTC).toLocalDateTime()
-        return Timestamp(unix, dateParsing(date))
+    private fun parseUnixToTimestamp(unix: Long): Timestamp {
+        val date = Date(unix)
+        return parseDateToTimestamp(date)
     }
 
-    private fun dateParsing(date: LocalDateTime): String {
-        return date.format(DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss 'GMT'"))
+    private fun parseDateToTimestamp(date: Date): Timestamp {
+        val formatter = SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'UTC'", Locale.US).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+        return Timestamp(date.time, formatter.format(date))
     }
 }
+
