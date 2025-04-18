@@ -9,24 +9,17 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.servlet.view.RedirectView
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/shorturl")
 class UrlController(val urlService: UrlService) {
-    @GetMapping
-    fun getUrls(): Map<Any, Any> {
-        return mapOf("Hello," to "World!")
-    }
-
     @GetMapping("/{shortUrl}")
-    fun getUrlByShortUrl(@PathVariable shortUrl: Long): ResponseEntity<Any> {
-        val foundUrl = urlService.getUrlByShortUrl(shortUrl)
-        return if (foundUrl != null) {
-            ResponseEntity.ok(foundUrl)
-        } else {
-            ResponseEntity.notFound().build()
-        }
-    }
+    fun getUrlByShortUrl(@PathVariable shortUrl: Long): Any =
+        urlService.getUrlByShortUrl(shortUrl)?.let {
+            RedirectView(it.originalUrl)
+        } ?: ResponseEntity.status(404).body("error" to "URL not found")
+
 
     @PostMapping
     fun getUrlByOriginalUrl(@RequestBody urlRequest: UrlRequest): ResponseEntity<Any> {
