@@ -18,17 +18,20 @@ class UrlController(val urlService: UrlService) {
     fun getUrlByShortUrl(@PathVariable shortUrl: Long): Any =
         urlService.getUrlByShortUrl(shortUrl)?.let {
             RedirectView(it.originalUrl)
-        } ?: ResponseEntity.status(404).body("error" to "URL not found")
+        } ?: ResponseEntity.status(404).body(mapOf("error" to "URL not found"))
 
 
     @PostMapping
     fun getUrlByOriginalUrl(@RequestBody urlRequest: UrlRequest): ResponseEntity<Any> {
-        val existingUrl = urlService.getUrlByOriginalUrl(urlRequest.url)
-        if (existingUrl != null) {
-            return ResponseEntity.ok(existingUrl)
+        try {
+            val existingUrl = urlService.getUrlByOriginalUrl(urlRequest.url)
+            if (existingUrl != null) {
+                return ResponseEntity.ok(existingUrl)
+            }
+            val newUrl = urlService.addUrl(urlRequest.url)
+            return ResponseEntity.ok(newUrl)
+        } catch (e: Exception) {
+            return ResponseEntity.status(500).body(mapOf("error" to " ${e.message}"))
         }
-
-        val newUrl = urlService.addUrl(urlRequest.url)
-        return ResponseEntity.ok(newUrl)
     }
 }
